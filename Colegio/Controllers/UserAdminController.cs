@@ -79,7 +79,7 @@ namespace IdentitySample.Controllers
         public async Task<ActionResult> Create()
         {
             //Get the list of Roles
-            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Nombre", "Nombre");
             return View();
         }
 
@@ -93,15 +93,15 @@ namespace IdentitySample.Controllers
                 var user = new ApplicationUser
                 {
                     Email = userViewModel.Email,
-                    // Add the Name Info:
-                    Name = userViewModel.Name,
-                    LastName = userViewModel.LastName,
+                    // Add the Nombre Info:
+                    Nombre = userViewModel.Name,
+                    SegundoNombre = userViewModel.LastName,
                     UserName = userViewModel.Username
                 };
 
-                // Add the Name Info:
-                user.Name = userViewModel.Name;
-                user.LastName = userViewModel.LastName;
+                // Add the Nombre Info:
+                user.Nombre = userViewModel.Name;
+                user.SegundoNombre = userViewModel.LastName;
                 user.UserName = userViewModel.Username;
 
                 // Then create:
@@ -116,7 +116,7 @@ namespace IdentitySample.Controllers
                         if (!result.Succeeded)
                         {
                             ModelState.AddModelError("", result.Errors.First());
-                            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Name", "Name");
+                            ViewBag.RoleId = new SelectList(await RoleManager.Roles.ToListAsync(), "Nombre", "Nombre");
                             return View();
                         }
                     }
@@ -124,13 +124,13 @@ namespace IdentitySample.Controllers
                 else
                 {
                     ModelState.AddModelError("", adminresult.Errors.First());
-                    ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
+                    ViewBag.RoleId = new SelectList(RoleManager.Roles, "Nombre", "Nombre");
                     return View();
 
                 }
                 return RedirectToAction("Index");
             }
-            ViewBag.RoleId = new SelectList(RoleManager.Roles, "Name", "Name");
+            ViewBag.RoleId = new SelectList(RoleManager.Roles, "Nombre", "Nombre");
             return View();
         }
 
@@ -156,8 +156,8 @@ namespace IdentitySample.Controllers
                 Email = user.Email,
                 // Include the Addresss info:
 
-                Name = user.Name,
-                LastName = user.LastName,
+                Name = user.Nombre,
+                LastName = user.SegundoNombre,
                 // UserName = user.UserName,
                 RolesList = RoleManager.Roles.ToList().Select(x => new SelectListItem()
                 {
@@ -172,7 +172,7 @@ namespace IdentitySample.Controllers
         // POST: /Users/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Name,Name,LastName,UserName")] EditUserViewModel editUser, params string[] selectedRole)
+        public async Task<ActionResult> Edit([Bind(Include = "Email,Id,Nombre,Nombre,SegundoNombre,UserName")] EditUserViewModel editUser, params string[] selectedRole)
         {
             if (ModelState.IsValid)
             {
@@ -184,8 +184,8 @@ namespace IdentitySample.Controllers
 
                 user.UserName = editUser.Email;
                 user.Email = editUser.Email;
-                user.Name = editUser.LastName;
-                user.LastName = editUser.Username;
+                user.Nombre = editUser.LastName;
+                user.SegundoNombre = editUser.Username;
                 user.UserName = editUser.PostalCode;
 
                 var userRoles = await UserManager.GetRolesAsync(user.Id);

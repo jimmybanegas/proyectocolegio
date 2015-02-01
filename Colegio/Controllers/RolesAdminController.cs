@@ -136,7 +136,7 @@ namespace IdentitySample.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Name,Id,Description")] RoleViewModel roleModel)
+        public async Task<ActionResult> Edit([Bind(Include = "Nombre,Id,Description")] RoleViewModel roleModel)
         {
             if (ModelState.IsValid)
             {

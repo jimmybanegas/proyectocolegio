@@ -22,7 +22,7 @@ namespace IdentitySample.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        // Add the Name Info:
+        // Add the Nombre Info:
         public string Name { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }

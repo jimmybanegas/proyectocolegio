@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using System;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Security.Claims;
@@ -7,6 +8,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace IdentitySample.Models
 {
+    public enum Sexo
+    {
+        Masculino, Femenino
+    }
+
     public class ApplicationUser : IdentityUser
     {
         public async Task<ClaimsIdentity>
@@ -17,16 +23,29 @@ namespace IdentitySample.Models
             return userIdentity;
         }
 
-        public string Name { get; set; }
-        public string LastName { get; set; }
+        public string Nombre { get; set; }
+
+        public string SegundoNombre { get; set; }
+
+        public string PrimerApellido { get; set; }
+
+        public string SegundoApellido { get; set; }
+
+        public DateTime FechaNacimiento { get; set; }
+
+        public Sexo Sexo { get; set; }
+
+        public string Direccion { get; set; }
+
+        public int NumeroCuenta { get; set; }
 
         // Concatenate the address info for display in tables and such:
         public string DisplayAddress
         {
             get
             {
-                string dspName = string.IsNullOrWhiteSpace(this.Name) ? "" : this.Name;
-                string dspLastName = string.IsNullOrWhiteSpace(this.LastName) ? "" : this.LastName;
+                string dspName = string.IsNullOrWhiteSpace(this.Nombre) ? "" : this.Nombre;
+                string dspLastName = string.IsNullOrWhiteSpace(this.SegundoNombre) ? "" : this.SegundoNombre;
                 string dspUsername = string.IsNullOrWhiteSpace(this.UserName) ? "" : this.UserName;
                 return string.Format("{0} {1} {2}", dspName, dspLastName, dspUsername);
             }
@@ -59,5 +78,7 @@ namespace IdentitySample.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<Colegio.Models.Maestro> ApplicationUsers { get; set; }
     }
 }

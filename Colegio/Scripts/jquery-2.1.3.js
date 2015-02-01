@@ -8180,7 +8180,7 @@ jQuery.extend({
 				return;
 			}
 
-			// LastName is "done" now
+			// SegundoNombre is "done" now
 			state = 2;
 
 			// Clear timeout if it exists
